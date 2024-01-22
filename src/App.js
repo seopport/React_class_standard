@@ -127,7 +127,10 @@ function App() {
     setResult(sortedArr.join(", "));
   };
 
-  const handleJoin = () => {};
+  const handleJoin = () => {
+    const newArr = [...array];
+    setResult(newArr.join(`${query} `));
+  };
 
   return (
     <div className="main">
