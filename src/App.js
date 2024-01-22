@@ -1,16 +1,8 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { useState } from "react";
 
 function App() {
-  const initialArray = [
-    "apple",
-    "banana",
-    "cherry",
-    "elderberry",
-    "watermelon",
-    "grape",
-  ];
+  const initialArray = ["apple", "banana", "cherry", "date", "elderberry"];
 
   const [array, setArray] = useState(initialArray);
   const [result, setResult] = useState("");
@@ -19,8 +11,8 @@ function App() {
 
   const handleForEach = () => {
     let tempResult = "";
-    array.forEach(function (fruit) {
-      tempResult += `${fruit}, `;
+    array.forEach(function (fruit, idx) {
+      tempResult += `${idx}: ${fruit}, `;
     });
     setResult(tempResult.slice(0, -2));
   };
@@ -47,7 +39,7 @@ function App() {
 
   const handleReduce = () => {
     const reducedListText = array.reduce(function (acc, cur) {
-      return `${acc}, ${cur}`;
+      return `${acc} + ${cur}`;
       //1. [apple, banana] = acc
       //2. [apple, banana,] cherry,
     });
@@ -83,9 +75,63 @@ function App() {
     setResult(newArr.join(", "));
   };
 
+  //원본배열의 뒤 2개 아이템을 제거하여 출력
+  const handleSlice = () => {
+    const newArr = array.slice(0, -2);
+    setResult(newArr.join(", "));
+  };
+
+  const handleSplice = () => {
+    //원본배열의 가운데 아이템 2번째 부터 2개를 “kiwi”, “lime”으로 변경
+    const middle = Math.floor(array.length / 2);
+    array.splice(middle, 2, "kiwi", "lime");
+    setResult(array.join(", "));
+  };
+
+  const handleIndexOf = () => {
+    //1. input에 입력한 값과 일치하는 값이 있는 경우 **`해당 index`**를 출력
+    //2. 없는 경우, `-1`을 출력
+    const num = array.indexOf(query);
+    setResult(num);
+  };
+
+  const handleIncludes = () => {
+    //원본배열이 input에 입력한 값과 일치하는 정확한 과일명을 가지고있는 경우 true 출력, 그 외의 경우 false 출력
+    if (array.includes(query)) {
+      setResult("true");
+    } else setResult("false");
+  };
+
+  const handleFind = () => {
+    //원본배열이 input에 입력한 값을 포함하는 과일명을 가지고있는 경우 과일명을 출력, 그 외의 경우 “Not Found”를 출력
+    const finded = array.find((item) => item.includes(query));
+
+    finded !== undefined ? setResult(finded) : setResult("Not Found");
+  };
+
+  const handleSome = () => {
+    //원본배열이 input에 입력한 값을 포함하는 과일명을 가지고있는 경우 true을 출력, 그 외의 경우 false 를 출력
+    const result = array.some((item) => item.includes(query));
+    result === true ? setResult("true") : setResult("false");
+  };
+  const handleEvery = () => {
+    //모든 과일명이 5글자를 초과하는 경우 true를 출력, 그 외의 경우 false를 출력
+    const result = array.every((item) => item.length > 5);
+    result === true ? setResult("true") : setResult("false");
+  };
+
+  const handleSort = () => {
+    //알파벳 내림차순 정렬 후 리스트 명을 “, “로 구분하여 출력
+    const newArr = [...array];
+    const sortedArr = newArr.sort();
+    setResult(sortedArr.join(", "));
+  };
+
+  const handleJoin = () => {};
+
   return (
-    <div>
-      <h1>Array API Practice</h1>
+    <div className="main">
+      <h1>Standard반 배열 API</h1>
       <div>
         <input
           value={query}
@@ -101,12 +147,21 @@ function App() {
         <button onClick={handleReduce}>reduce</button>&nbsp;
         <button onClick={handlePush}>push</button>&nbsp;
         <button onClick={handlePop}>pop</button>&nbsp;
+        <button onClick={handleSlice}>slice</button>&nbsp;
+        <button onClick={handleSplice}>splice</button>&nbsp;
+        <button onClick={handleIndexOf}>indexOf</button>&nbsp;
+        <button onClick={handleIncludes}>includes</button>&nbsp;
+        <button onClick={handleFind}>find</button>&nbsp;
+        <button onClick={handleSome}>some</button>&nbsp;
+        <button onClick={handleEvery}>every</button>&nbsp;
+        <button onClick={handleSort}>sort</button>&nbsp;
+        <button onClick={handleJoin}>join</button>&nbsp;
       </div>
-      <div>
-        <strong>Array</strong> : {array.join(", ")}
+      <div className="origin">
+        <strong>원본 배열</strong> : {array.join(", ")}
       </div>
-      <div>
-        <strong>Result</strong> : {result}
+      <div className="result">
+        <strong>결과물</strong> : {result}
       </div>
     </div>
   );
