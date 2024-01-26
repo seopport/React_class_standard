@@ -22,10 +22,8 @@ function App() {
         {/* TODO: map을 사용해서 filteredStudents를 여기에 렌더링하세요. */}
         {
           filteredStudents.map((item) => {
-            return (<div >
-              이름 : {item.name}
-              나이 : {item.age}
-              성적 : {item.grade}
+            return (<div onClick={() => { alert(`나이 : ${item.age} / 점수 : ${item.grade}`) }}>
+              이름 : {item.name}  <br /><br />
             </div>
             )
           })}
