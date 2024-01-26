@@ -17,6 +17,11 @@ function App() {
   ];
 
   const [minAge, setMinAge] = useState(18);
+  const [age, setAge] = useState(0);
+
+  const handleAgeChange = (e) => {
+    setAge(e.target.value);
+  }
 
   // TODO: filter를 사용하여 minAge 이상의 학생들만 선택하세요.
   const filteredStudents = students.filter((student) => student.age >= minAge);
@@ -28,13 +33,25 @@ function App() {
     </li>
   ));
 
+
+
   return (
     <div>
       <h1>학생 목록</h1>
       다음 나이 이상의 학생목록만 출력해요 :{" "}
       {/* TODO: input에 입력된 값(숫자) 이상의 나이를 가진 학생들만 출력하세요. */}
-      <input type="number" /> 살 이상
-      <ul>{studentList}</ul>
+      <input type="number" value={age} onChange={handleAgeChange} /> 살 이상
+      <ul>
+        {filteredStudents.filter((item) => {
+          return item.age >= age
+        }).map((item, idx) => {
+          return (
+            <li key={idx}>
+              {item.name} - Age: {item.age}, Grade: {item.grade}
+            </li>
+          )
+        })}
+      </ul>
     </div>
   );
 }
