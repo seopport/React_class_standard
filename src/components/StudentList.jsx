@@ -4,11 +4,10 @@ import React from "react";
 function StudentList({ filteredStudents }) {
   return (
     <ul>
-      여기에 학생 목록을 표시하는 로직을 작성하세요.
       {/* ex: 홍길동 (20세) - A등급 */}
-      {filteredStudents.map((item) => {
+      {filteredStudents.map((item, idx) => {
         return (
-          <li> {item.name} ({item.age}) - {item.grade}등급</li>
+          <li key={idx}> {item.name} ({item.age}) - {item.grade}등급</li>
         )
       })}
     </ul>
