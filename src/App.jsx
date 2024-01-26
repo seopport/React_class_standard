@@ -27,7 +27,7 @@ function App() {
   // TODO: filterByGrade 함수를 작성하세요. 이 함수는 특정 학점을 매개변수로 받아 해당 학점의 학생들로 필터링해야 합니다.
   const filterByGrade = (grade) => {
     // 여기에 코드를 작성하세요.
-    const filteredByGradeStudents = students.filter((item) => item.grade <= grade);
+    const filteredByGradeStudents = students.filter((item) => item.grade === grade);
     setFilteredStudents(filteredByGradeStudents);
 
   };
